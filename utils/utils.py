@@ -55,8 +55,10 @@ def display_predictions(images, captions):
         if display_img.ndim == 2:
             display_img = np.stack([display_img] * 3, axis=-1)
 
-        # If image is float in [0, 1], rescale to [0, 255]
-        if display_img.max() <= 1.0:
+        # Smart rescaling based on range
+        if display_img.max() <= 0.01:
+            display_img = (display_img * 255 * 255).astype("uint8")
+        elif display_img.max() <= 1.0:
             display_img = (display_img * 255).astype("uint8")
         else:
             display_img = display_img.astype("uint8")
