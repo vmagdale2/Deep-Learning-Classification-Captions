@@ -42,8 +42,12 @@ def display_predictions(images, captions):
     """
     Display a list of images with their corresponding predicted captions.
     """
+    import matplotlib.pyplot as plt
+
     for img, caption in zip(images, captions):
-        plt.imshow((img * 255).astype("uint8"))  # <- rescale and convert
+        # Rescale from [0, 1] to [0, 255] and convert to uint8 for display
+        display_img = (img * 255).astype("uint8")
+        plt.imshow(display_img)
         plt.title(caption)
         plt.axis('off')
         plt.show()
