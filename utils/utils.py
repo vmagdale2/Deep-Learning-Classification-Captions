@@ -41,12 +41,24 @@ def load_model(path):
 def display_predictions(images, captions):
     """
     Display a list of images with their corresponding predicted captions.
+    Automatically handles grayscale or RGB and rescales only if needed.
     """
     import matplotlib.pyplot as plt
+    import numpy as np
 
     for img, caption in zip(images, captions):
-        # Rescale from [0, 1] to [0, 255] and convert to uint8 for display
-        display_img = (img * 255).astype("uint8")
+        display_img = img.copy()
+
+        # Handle grayscale images by converting to RGB
+        if display_img.ndim == 2:
+            display_img = np.stack([display_img] * 3, axis=-1)
+
+        # If image is float in [0, 1], rescale to [0, 255]
+        if display_img.max() <= 1.0:
+            display_img = (display_img * 255).astype("uint8")
+        else:
+            display_img = display_img.astype("uint8")
+
         plt.imshow(display_img)
         plt.title(caption)
         plt.axis('off')
