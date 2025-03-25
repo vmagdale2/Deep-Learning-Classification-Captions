@@ -40,9 +40,10 @@ def load_model(path):
 
 def display_predictions(images, captions):
     """
-    Displays image predictions alongside their captions.
+    Display a list of images with their corresponding predicted captions.
     """
     for img, caption in zip(images, captions):
-        plt.imshow(img)
+        plt.imshow((img * 255).astype("uint8"))  # <- rescale and convert
         plt.title(caption)
+        plt.axis('off')
         plt.show()
