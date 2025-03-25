@@ -38,6 +38,8 @@ def load_model(path):
 
 
 def display_predictions(images, captions):
+    import matplotlib.pyplot as plt
+
     """
     Displays image predictions alongside their captions.
     """
