@@ -46,8 +46,10 @@ def display_predictions(images, captions):
     import matplotlib.pyplot as plt
     import numpy as np
 
-    for img, caption in zip(images, captions):
+    for idx, (img, caption) in enumerate(zip(images, captions)):
         display_img = img.copy()
+
+        print(f"Image {idx} - Original shape: {display_img.shape}, min: {display_img.min()}, max: {display_img.max()}")
 
         # Handle grayscale images by converting to RGB
         if display_img.ndim == 2:
@@ -59,7 +61,10 @@ def display_predictions(images, captions):
         else:
             display_img = display_img.astype("uint8")
 
+        print(f"Image {idx} - Processed shape: {display_img.shape}, min: {display_img.min()}, max: {display_img.max()}")
+
         plt.imshow(display_img)
         plt.title(caption)
         plt.axis('off')
         plt.show()
+
